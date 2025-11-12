@@ -45,6 +45,7 @@
       padding: 10px 15px;
       cursor: pointer;
       font-weight: bold;
+      color: #5a3d1e; /*seguindo wcag p melhor contraste*/
       transition: all 0.3s;
     }
 
@@ -109,7 +110,7 @@
       border-radius: 6px;
       cursor: pointer;
       margin-top: 10px;
-      /*transition: background 0.3s;*/
+      transition: background-color 0.3s;
     }
 
     .add-btn:hover {
@@ -137,6 +138,7 @@
       overflow-y: auto;
       padding: 15px;
       display: none;
+      z-index: 1000; /* p ficar acima de outros elementos*/
     }
 
     #cart h3 {
@@ -162,6 +164,7 @@
       text-align: center;
       font-weight: bold;
       color: #e89b42;
+      padding-top: 5px;
     }
 
     #cart-btn {
@@ -214,14 +217,14 @@
 
   <script>
     const produtos = [
-      { id: 1, nome: "Pão Francês", categoria: "paes", preco: 1.20, descricao: "Crosta crocante e miolo macio.", imagem: "https://images.unsplash.com/photo-1608198093002-de5f2b3b2e94" },
-      { id: 2, nome: "Bolo de Fubá", categoria: "bolos", preco: 6.50, descricao: "Receita tradicional da Vó Inês.", imagem: "https://images.unsplash.com/photo-1613145993481-3d33b9e3e81a" },
-      { id: 3, nome: "Sonho de Creme", categoria: "doces", preco: 4.00, descricao: "Recheado com creme caseiro delicioso.", imagem: "https://images.unsplash.com/photo-1608219959300-b8f7e6e3a5a4" },
-      { id: 4, nome: "Café Expresso", categoria: "bebidas", preco: 3.00, descricao: "Café forte e aromático.", imagem: "https://images.unsplash.com/photo-1510626176961-4b57d4fbad03" },
-      { id: 5, nome: "Pão de Queijo", categoria: "paes", preco: 2.50, descricao: "Feito com queijo minas fresco.", imagem: "https://images.unsplash.com/photo-1607956212329-6b5f3a8e9d7d" },
-      { id: 6, nome: "Bolo de Chocolate", categoria: "bolos", preco: 8.90, descricao: "Cobertura cremosa e sabor intenso.", imagem: "https://images.unsplash.com/photo-1601979031925-424e53b6caaa" },
-      { id: 7, nome: "Brigadeiro", categoria: "doces", preco: 2.00, descricao: "O clássico das festas brasileiras.", imagem: "https://images.unsplash.com/photo-1626899723172-53e83a7aab2c" },
-      { id: 8, nome: "Suco Natural de Laranja", categoria: "bebidas", preco: 5.00, descricao: "Feito com frutas frescas.", imagem: "https://images.unsplash.com/photo-1571687949920-10aa84b5a4b8" }
+      { id: 1, nome: "Pão Francês", categoria: "paes", preco: 1.20, descricao: "Crosta crocante e miolo macio.", imagem: "images/pao_frances.webp" },
+      { id: 2, nome: "Bolo de Fubá", categoria: "bolos", preco: 6.50, descricao: "Receita tradicional da Vó Inês.", imagem: "images/bolo_de_fuba.webp" },
+      { id: 3, nome: "Sonho de Creme", categoria: "doces", preco: 4.00, descricao: "Recheado com creme caseiro delicioso.", imagem: "images/sonho_de_creme.webp" },
+      { id: 4, nome: "Café Expresso", categoria: "bebidas", preco: 3.00, descricao: "Café forte e aromático.", imagem: "images/cafe_expresso.jpg" },
+      { id: 5, nome: "Pão de Queijo", categoria: "paes", preco: 2.50, descricao: "Feito com queijo minas fresco.", imagem: "images/pao_de_queijo.jpg" },
+      { id: 6, nome: "Bolo de Chocolate", categoria: "bolos", preco: 8.90, descricao: "Cobertura cremosa e sabor intenso.", imagem: "images/bolo_de_chocolate.webp" },
+      { id: 7, nome: "Brigadeiro", categoria: "doces", preco: 2.00, descricao: "O clássico das festas brasileiras.", imagem: "images/brigadeiro.webp" },
+      { id: 8, nome: "Suco Natural de Laranja", categoria: "bebidas", preco: 5.00, descricao: "Feito com frutas frescas.", imagem: "images/suco_natural_de_laranja.webp" }
     ];
 
     const container = document.getElementById('menu-container');
@@ -273,7 +276,8 @@
         `;
         cartItemsDiv.appendChild(div);
       });
-      /*cartTotal.textContent = Total{total.toFixed(2)};*/
+      cartTotal.textContent = 'Total: R$ ${total.toFixed(2)}';
+      cartBtn.setAttribute('aria-expanded', cart.style.display === 'block'); /* adicionar item p quando o carrinho nn esta aberto*/
     }
 
     filterButtons.forEach(btn => {
@@ -286,6 +290,7 @@
 
     cartBtn.addEventListener('click', () => {
       cart.style.display = cart.style.display === 'block' ? 'none' : 'block';
+      cartBtn.setAttribute('aria-expanded', !isVisible); /*expande p leitores de tela*/
     });
 
     renderMenu();
