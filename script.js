@@ -16,6 +16,11 @@ const cartBtn = document.getElementById('cart-btn');
 const cart = document.getElementById('cart');
 const cartItemsDiv = document.getElementById('cart-items');
 const cartTotal = document.getElementById('cart-total');
+const productModal = document.getElementById('product-modal');
+const modalDetails = document.getElementById('modal-details');
+const closeBtn = document.querySelector('.close-btn');
+const finishOrderBtn = document.getElementById('finish-order-btn');
+const minimizeCartBtn = document.getElementById('minimize-cart-btn');
 
 let carrinho = [];
 
@@ -38,7 +43,12 @@ function renderMenu(categoria = 'tudo') {
                 <h3>${produto.nome}</h3>
                 <p>${produto.descricao}</p>
                 <div class="price">R$ ${produto.preco.toFixed(2)}</div>
-                <button class="add-btn" onclick="adicionarAoCarrinho(${produto.id})">Adicionar</button>
+
+                <div class="button-group">
+                    <button class="add-btn" onclick="adicionarAoCarrinho(${produto.id})">Adicionar</button>
+                    
+                    <button class="add-btn ver-detalhes-btn" onclick="mostrarDetalhes(${produto.id})">Ver Detalhes</button>
+                </div>
             </div>
         `;
         container.appendChild(card);
@@ -69,8 +79,80 @@ function atualizarCarrinho() {
     // uso de template literal no total
     cartTotal.textContent = `Total: R$ ${total.toFixed(2)}`;
     // adiciona estado expandido se o carrinho estiver visivel wcag
-    cartBtn.setAttribute('aria-expanded', cart.style.display === 'block'); 
+    cartBtn.setAttribute('aria-expanded', cart.style.display === 'block');
+    
+    const cartActions = document.querySelector('.cart-actions');
+    if (carrinho.length > 0 && cartActions) {
+        cartActions.style.display = 'flex';
+    } else if (cartActions) {
+        cartActions.style.display = 'none';
+    }
 }
+
+function mostrarDetalhes(id) {
+    const produto = produtos.find(p => p.id === id);
+    if (!produto) return;
+
+    document.getElementById('modal-title').textContent = produto.nome;
+    document.getElementById('modal-image').src = produto.imagem;
+    document.getElementById('modal-image').alt = produto.nome;
+    document.getElementById('modal-description').textContent = produto.descricao;
+    document.getElementById('modal-price').textContent = `Preço: R$ ${produto.preco.toFixed(2)}`;
+    
+    const modalAddBtn = document.getElementById('modal-add-btn');
+    modalAddBtn.onclick = null; 
+    modalAddBtn.onclick = () => {
+        adicionarAoCarrinho(produto.id);
+        productModal.style.display = 'none'; 
+    };
+
+    productModal.style.display = 'flex'; 
+    productModal.focus(); 
+}
+
+function fecharModal() {
+    productModal.style.display = 'none';
+}
+
+function finalizarPedido() {
+    if (carrinho.length === 0) {
+        alert("Seu carrinho está vazio!");
+        return;
+    }
+    // limpa o array
+    carrinho = []; 
+    atualizarCarrinho();
+    alert("Pedido finalizado com sucesso! Seu carrinho foi limpo.");
+    cart.style.display = 'none';
+    cartBtn.setAttribute('aria-expanded', false);
+}
+
+function minimizarCarrinho() {
+    cart.style.display = 'none';
+    cartBtn.setAttribute('aria-expanded', false);
+}
+
+if (finishOrderBtn) {
+    finishOrderBtn.addEventListener('click', finalizarPedido);
+}
+
+if (minimizeCartBtn) {
+    minimizeCartBtn.addEventListener('click', minimizarCarrinho);
+}
+
+closeBtn.addEventListener('click', fecharModal);
+
+window.addEventListener('click', (event) => {
+    if (event.target === productModal) {
+        fecharModal();
+    }
+});
+
+document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape' && productModal.style.display === 'flex') {
+        fecharModal();
+    }
+});
 
 filterButtons.forEach(btn => {
     btn.addEventListener('click', () => {
@@ -97,3 +179,7 @@ cartBtn.addEventListener('click', () => {
 
 
 renderMenu();
+
+document.addEventListener('DOMContentLoaded', () => {
+    atualizarCarrinho(); 
+});

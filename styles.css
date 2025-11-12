@@ -58,6 +58,74 @@ nav button.active {
     color: #fff;
 }
 
+.modal {
+    position: fixed; 
+    z-index: 2000; 
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.4); 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background-color: #fff8f0;
+    margin: 15% auto; 
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 500px; 
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    position: relative;
+    text-align: center;
+}
+
+.close-btn {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+    position: absolute;
+    top: 10px;
+    right: 20px;
+}
+
+.close-btn:hover,
+.close-btn:focus {
+    color: #5a3d1e;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+#modal-details img {
+    max-width: 100%;
+    height: auto;
+    max-height: 200px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin: 15px 0;
+}
+
+#modal-details h2 {
+    color: #5a3d1e;
+    font-size: 1.8em;
+    margin-bottom: 5px;
+}
+
+#modal-details p {
+    margin-bottom: 15px;
+}
+
+#modal-add-btn {
+    width: 100%;
+}
+
 .container {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -187,4 +255,59 @@ footer {
 
 #cart-btn:hover {
     background-color: #c67a2b;
+}
+
+.button-group {
+    display: flex;
+    gap: 10px; 
+    margin-top: 10px;
+}
+
+.button-group .add-btn {
+    margin-top: 0; 
+}
+
+.ver-detalhes-btn {
+    background-color: #5a3d1e; 
+}
+
+.ver-detalhes-btn:hover {
+    background-color: #3f2c17; 
+}
+
+.cart-actions {
+    display: flex;
+    justify-content: space-between; 
+    gap: 10px;
+    margin-top: 15px;
+    padding-top: 10px;
+    border-top: 1px solid #eee;
+}
+
+.cart-action-btn {
+    flex-grow: 1;
+    padding: 8px;
+    border: none;
+    border-radius: 6px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+#finish-order-btn {
+    background-color: #e89b42; 
+    color: white;
+}
+
+#finish-order-btn:hover {
+    background-color: #c67a2b;
+}
+
+#minimize-cart-btn {
+    background-color: #ddd; 
+    color: #333;
+}
+
+#minimize-cart-btn:hover {
+    background-color: #ccc;
 }
