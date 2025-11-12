@@ -1,299 +1,42 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Padaria da Vó Inês</title>
-  <style>
-    * {
-      box-sizing: border-box;
-      font-family: "Poppins", sans-serif;
-      margin: 0;
-      padding: 0;
-    }
-
-    body {
-      background-color: #fff8f0;
-      color: #333;
-    }
-
-    header {
-      background-color: #f4c27f;
-      padding: 20px;
-      text-align: center;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-    }
-
-    header h1 {
-      font-size: 2em;
-      color: #5a3d1e;
-    }
-
-    nav {
-      display: flex;
-      justify-content: center;
-      gap: 15px;
-      flex-wrap: wrap;
-      background-color: #fff1db;
-      padding: 10px;
-    }
-
-    nav button {
-      background-color: #f4c27f;
-      border: none;
-      border-radius: 8px;
-      padding: 10px 15px;
-      cursor: pointer;
-      font-weight: bold;
-      color: #5a3d1e; /*seguindo wcag p melhor contraste*/
-      transition: all 0.3s;
-    }
-
-    nav button:hover,
-    nav button.active {
-      background-color: #e89b42;
-      color: #fff;
-    }
-
-    .container {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 20px;
-      padding: 30px;
-      max-width: 1200px;
-      margin: auto;
-    }
-
-    .card {
-      background-color: #fff;
-      border-radius: 10px;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-      overflow: hidden;
-      transition: transform 0.2s;
-    }
-
-    .card:hover {
-      transform: scale(1.03);
-    }
-
-    .card img {
-      width: 100%;
-      height: 150px;
-      object-fit: cover;
-    }
-
-    .card-content {
-      padding: 15px;
-    }
-
-    .card-content h3 {
-      margin-bottom: 8px;
-      color: #5a3d1e;
-    }
-
-    .card-content p {
-      font-size: 0.9em;
-      color: #555;
-    }
-
-    .price {
-      font-weight: bold;
-      margin-top: 8px;
-      color: #e89b42;
-    }
-
-    .add-btn {
-      background-color: #e89b42;
-      border: none;
-      color: #fff;
-      padding: 8px 12px;
-      border-radius: 6px;
-      cursor: pointer;
-      margin-top: 10px;
-      transition: background-color 0.3s;
-    }
-
-    .add-btn:hover {
-      background-color: #c67a2b;
-    }
-
-    footer {
-      background-color: #f4c27f;
-      text-align: center;
-      padding: 15px;
-      font-weight: bold;
-      color: #5a3d1e;
-    }
-
-    /* Carrinho */
-    #cart {
-      position: fixed;
-      right: 20px;
-      bottom: 20px;
-      background-color: #fff;
-      border-radius: 10px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.2);
-      width: 260px;
-      max-height: 400px;
-      overflow-y: auto;
-      padding: 15px;
-      display: none;
-      z-index: 1000; /* p ficar acima de outros elementos*/
-    }
-
-    #cart h3 {
-      text-align: center;
-      margin-bottom: 10px;
-      color: #5a3d1e;
-    }
-
-    .cart-item {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 5px 0;
-      border-bottom: 1px solid #eee;
-    }
-
-    .cart-item span {
-      font-size: 0.9em;
-    }
-
-    #cart-total {
-      margin-top: 10px;
-      text-align: center;
-      font-weight: bold;
-      color: #e89b42;
-      padding-top: 5px;
-    }
-
-    #cart-btn {
-      position: fixed;
-      right: 20px;
-      bottom: 20px;
-      background-color: #e89b42;
-      color: white;
-      border: none;
-      border-radius: 50%;
-      width: 60px;
-      height: 60px;
-      font-size: 1.5em;
-      cursor: pointer;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.3);
-    }
-
-    #cart-btn:hover {
-      background-color: #c67a2b;
-    }
-  </style>
+    <link rel="icon" type="image/png" href="images/logo.png">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Padaria da Vó Inês</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="styles.css"> 
 </head>
 <body>
-  <header>
-    <h1>Padaria da Vó Inês</h1>
-    <p>Tradição e sabor desde 1965</p>
-  </header>
+    <header>
+        <h1>Padaria da Vó Inês</h1>
+        <p>Tradição e sabor desde 1965</p>
+    </header>
 
-  <nav>
-    <button class="filter-btn active" data-category="tudo">Tudo</button>
-    <button class="filter-btn" data-category="paes">Pães</button>
-    <button class="filter-btn" data-category="bolos">Bolos</button>
-    <button class="filter-btn" data-category="doces">Doces</button>
-    <button class="filter-btn" data-category="bebidas">Bebidas</button>
-  </nav>
+    <nav aria-label="Filtro de Produtos">
+        <button class="filter-btn active" data-category="tudo">Tudo</button>
+        <button class="filter-btn" data-category="paes">Pães</button>
+        <button class="filter-btn" data-category="bolos">Bolos</button>
+        <button class="filter-btn" data-category="doces">Doces</button>
+        <button class="filter-btn" data-category="bebidas">Bebidas</button>
+    </nav>
 
-  <main class="container" id="menu-container"></main>
+    <main class="container" id="menu-container" aria-live="polite"></main>
 
-  <button id="cart-btn">🛒</button>
+    <button id="cart-btn" aria-label="Abrir e Fechar Carrinho">🛒</button>
 
-  <div id="cart">
-    <h3>Carrinho</h3>
-    <div id="cart-items"></div>
-    <div id="cart-total">Total: R$ 0,00</div>
-  </div>
+    <div id="cart" role="region" aria-label="Itens no Carrinho de Compras">
+        <h3>Carrinho</h3>
+        <div id="cart-items"></div>
+        <div id="cart-total">Total: R$ 0,00</div>
+    </div>
 
-  <footer>
-    © 2025 Padaria da Vó Inês — Feito com carinho!
-  </footer>
+    <footer>
+        © 2025 Padaria da Vó Inês — Feito com carinho!
+    </footer>
 
-  <script>
-    const produtos = [
-      { id: 1, nome: "Pão Francês", categoria: "paes", preco: 1.20, descricao: "Crosta crocante e miolo macio.", imagem: "images/pao_frances.webp" },
-      { id: 2, nome: "Bolo de Fubá", categoria: "bolos", preco: 6.50, descricao: "Receita tradicional da Vó Inês.", imagem: "images/bolo_de_fuba.webp" },
-      { id: 3, nome: "Sonho de Creme", categoria: "doces", preco: 4.00, descricao: "Recheado com creme caseiro delicioso.", imagem: "images/sonho_de_creme.webp" },
-      { id: 4, nome: "Café Expresso", categoria: "bebidas", preco: 3.00, descricao: "Café forte e aromático.", imagem: "images/cafe_expresso.jpg" },
-      { id: 5, nome: "Pão de Queijo", categoria: "paes", preco: 2.50, descricao: "Feito com queijo minas fresco.", imagem: "images/pao_de_queijo.jpg" },
-      { id: 6, nome: "Bolo de Chocolate", categoria: "bolos", preco: 8.90, descricao: "Cobertura cremosa e sabor intenso.", imagem: "images/bolo_de_chocolate.webp" },
-      { id: 7, nome: "Brigadeiro", categoria: "doces", preco: 2.00, descricao: "O clássico das festas brasileiras.", imagem: "images/brigadeiro.webp" },
-      { id: 8, nome: "Suco Natural de Laranja", categoria: "bebidas", preco: 5.00, descricao: "Feito com frutas frescas.", imagem: "images/suco_natural_de_laranja.webp" }
-    ];
-
-    const container = document.getElementById('menu-container');
-    const filterButtons = document.querySelectorAll('.filter-btn');
-    const cartBtn = document.getElementById('cart-btn');
-    const cart = document.getElementById('cart');
-    const cartItemsDiv = document.getElementById('cart-items');
-    const cartTotal = document.getElementById('cart-total');
-
-    let carrinho = [];
-
-    function renderMenu(categoria = 'tudo') {
-      container.innerHTML = '';
-      const filtrados = categoria === 'tudo' ? produtos : produtos.filter(p => p.categoria === categoria);
-      filtrados.forEach(produto => {
-        const card = document.createElement('div');
-        card.className = 'card';
-        card.innerHTML = `
-          <img src="${produto.imagem}" alt="${produto.nome}">
-          <div class="card-content">
-            <h3>${produto.nome}</h3>
-            <p>${produto.descricao}</p>
-            <div class="price">R$ ${produto.preco.toFixed(2)}</div>
-            <button class="add-btn" onclick="adicionarAoCarrinho(${produto.id})">Adicionar</button>
-          </div>
-        `;
-        container.appendChild(card);
-      });
-    }
-
-    function adicionarAoCarrinho(id) {
-      const produto = produtos.find(p => p.id === id);
-      const item = carrinho.find(i => i.id === id);
-      if (item) item.qtd++;
-      else carrinho.push({ ...produto, qtd: 1 });
-      atualizarCarrinho();
-    }
-
-    function atualizarCarrinho() {
-      cartItemsDiv.innerHTML = '';
-      let total = 0;
-      carrinho.forEach(item => {
-        total += item.preco * item.qtd;
-        const div = document.createElement('div');
-        div.className = 'cart-item';
-        div.innerHTML = `
-          <span>${item.nome} x${item.qtd}</span>
-          <span>R$ ${(item.preco * item.qtd).toFixed(2)}</span>
-        `;
-        cartItemsDiv.appendChild(div);
-      });
-      cartTotal.textContent = 'Total: R$ ${total.toFixed(2)}';
-      cartBtn.setAttribute('aria-expanded', cart.style.display === 'block'); /* adicionar item p quando o carrinho nn esta aberto*/
-    }
-
-    filterButtons.forEach(btn => {
-      btn.addEventListener('click', () => {
-        filterButtons.forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-        renderMenu(btn.dataset.category);
-      });
-    });
-
-    cartBtn.addEventListener('click', () => {
-      cart.style.display = cart.style.display === 'block' ? 'none' : 'block';
-      cartBtn.setAttribute('aria-expanded', !isVisible); /*expande p leitores de tela*/
-    });
-
-    renderMenu();
-  </script>
+    <script src="script.js"></script> 
 </body>
 </html>
